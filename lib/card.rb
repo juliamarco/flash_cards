@@ -7,4 +7,6 @@ attr_accessor :question, :answer, :category
     @category = category
   end
 
+
+
 end
