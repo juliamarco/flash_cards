@@ -1,9 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require '../lib/card'
-require '../lib/deck'
-require '../lib/round'
-require '../lib/turn'
+require './lib/card'
+require './lib/deck'
+require './lib/round'
+require './lib/turn'
 require 'pry'
 
 class RoundTest < Minitest::Test
@@ -70,7 +70,7 @@ class RoundTest < Minitest::Test
     assert_equal Turn, turn.class
   end
 
-  def test_check_if_turn_correct
+  def test_check_if_new_turn_guess_is_correct
 
     card_1 = Card.new("What is the capital of Alaska?", "Juneau", :Geography)
     card_2 = Card.new("The Viking spacecraft sent back to Earth photographs and reports about the surface of which planet?", "Mars", :STEM)
@@ -114,8 +114,10 @@ class RoundTest < Minitest::Test
     round = Round.new(deck)
     turn = round.take_turn("Juneau")
 
-    assert_equal deck.cards[1], round.current_card
+    assert_equal deck.cards[0], round.current_card
   end
+
+
 
 
 end

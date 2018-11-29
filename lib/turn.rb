@@ -1,3 +1,5 @@
+require './lib/card'
+
 class Turn
 attr_accessor :guess,
               :card
@@ -8,7 +10,7 @@ attr_accessor :guess,
   end
 
   def correct?
-    @guess == card.answer
+    card.answer == guess
   end
 
   def feedback
