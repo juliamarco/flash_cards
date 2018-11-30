@@ -1,20 +1,23 @@
-class Turn
-attr_accessor :guess, :card
+require './lib/card'
 
-  def initialize(string, card)
-    @guess = string
+class Turn
+attr_accessor :guess,
+              :card
+
+  def initialize(guess, card)
+    @guess = guess
     @card = card
   end
 
   def correct?
-    @guess == card.answer
+    card.answer == guess
   end
 
   def feedback
     if correct?
       return "Correct!"
     else
-      return "Incorrect"
+      return "Incorrect."
     end
   end
 
