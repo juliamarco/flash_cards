@@ -17,7 +17,7 @@ attr_accessor :guess,
     if correct?
       return "Correct!"
     else
-      return "Incorrect"
+      return "Incorrect."
     end
   end
 

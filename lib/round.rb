@@ -34,12 +34,29 @@ class Round
     return number_correct
   end
 
+  def number_correct_by_category(category)
+    number_correct_by_category = 0
+    @turns.each do |turn|
+      if turn.card.category == category
+         number_correct_by_category += 1
+      end
+      return number_correct_by_category
+    end
+  end
+
+  def percent_correct
+    number_correct / @turns.count.to_f * 100.0
+  end
+
+  def percent_correct_by_category(category)
+    total_of_that_category = 0
+      @turns.each do |turn|
+      if turn.card.category == category
+         total_of_that_category += 1
+      end
+    end
+    number_correct_by_category = number_correct_by_category(category)
+    number_correct_by_category / total_of_that_category * 100.0
+  end
 
 end
-
-card_1 = Card.new("What is the capital of Alaska?", "Juneau", :Geography)
-card_2 = Card.new("The Viking spacecraft sent back to Earth photographs and reports about the surface of which planet?", "Mars", :STEM)
-card_3 = Card.new("Describe in words the exact direction that is 697.5° clockwise from due north?", "North north west", :STEM)
-deck = Deck.new([card_1, card_2, card_3])
-round = Round.new(deck)
-p round.take_turn("Venus")
