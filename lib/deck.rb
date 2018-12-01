@@ -14,7 +14,7 @@ attr_reader :cards
   end
 
 
-  def cards_in_category(category)
+  def cards_in_category(category = "STEM")
     cards_ordered_by_category = []
     cards.each do |card|
       if card.category == category

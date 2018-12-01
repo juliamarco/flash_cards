@@ -38,10 +38,12 @@ class Round
     number_correct_by_category = 0
     @turns.each do |turn|
       if turn.card.category == category
-         number_correct_by_category += 1
+         if turn.correct?
+           number_correct_by_category += 1
+         end
       end
-      return number_correct_by_category
     end
+    return number_correct_by_category
   end
 
   def percent_correct
@@ -50,52 +52,48 @@ class Round
 
   def percent_correct_by_category(category)
     total_of_that_category = 0
+    total_correct_of_category = 0
       @turns.each do |turn|
-      if turn.card.category == category
+        if turn.card.category == category
          total_of_that_category += 1
+        end
       end
-    end
-    number_correct_by_category = number_correct_by_category(category)
-    number_correct_by_category / total_of_that_category * 100.0
+      @turns.each do |turn|
+        if turn.card.category == category && turn.correct?
+          total_correct_of_category += 1
+        end
+      end
+    return (total_correct_of_category.to_f / total_of_that_category.to_f) * 100.0
   end
-
 
   def start
-
+      card_count = 1
+      card_total = 4
       puts "Welcome! You're playing with 4 cards."
       puts "-------------------------------------------------"
-      puts "This is card number 1 out of 4."
 
+      until card_count == card_total + 1
+      puts "This is card number #{card_count} out of #{card_total}."
       puts "Question: #{current_card.question}"
-      answer_to_card_1 = gets.chomp.upcase
-      turn = take_turn(answer_to_card_1)
+      answer_to_card = gets.chomp.upcase
+      turn = take_turn(answer_to_card)
       p turn.feedback
-      puts "This is card number 2 out of 4."
-      puts "Question: #{current_card.question}"
-      answer_to_card_2 = gets.chomp.upcase
-      turn_2 = take_turn(answer_to_card_2)
-      p turn_2.feedback
-      puts "This is card number 3 out of 4."
-      puts "Question: #{current_card.question}"
-      answer_to_card_3 = gets.chomp.upcase
-      turn_3 = take_turn(answer_to_card_3)
-      p turn_3.feedback
-      puts "This is card number 4 out of 4."
-      puts "Question: #{current_card.question}"
-      answer_to_card_4 = gets.chomp.upcase
-      turn_4 = take_turn(answer_to_card_4)
-      p turn_4.feedback
+      card_count += 1
+      end
 
+      puts "****** Game over! ******"
+      puts "You had #{number_correct} correct guesses out of #{card_total} for a total score of #{percent_correct}."
 
+      categories_in_actual_turn = []
+      @turns.each do |turn|
+        if categories_in_actual_turn.include? turn.card.category
+        else
+        categories_in_actual_turn << turn.card.category
+        end
+      end
+
+      categories_in_actual_turn.each do |category|
+        puts "#{category} - #{percent_correct_by_category(category)} correct"
+      end
     end
-
-  def end
-    puts "****** Game over! ******"
-    puts "You had #{number_correct} correct guesses out of 4 for a total score of #{percent_correct}."
-    puts "Art - #{percent_correct_by_category(:Art)} correct"
-    puts "Language- #{percent_correct_by_category(:Language)} correct"
-    puts "Science - #{percent_correct_by_category(:Science)} correct"
-
   end
-
-end
