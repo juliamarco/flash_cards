@@ -54,7 +54,7 @@ class TurnTest < Minitest::Test
   assert_instance_of Card, turn.card
   assert_equal "Saturn", turn.guess
   assert_equal false, turn.correct?
-  assert_equal "Incorrect", turn.feedback
+  assert_equal "Incorrect.", turn.feedback
   end
 
 end
